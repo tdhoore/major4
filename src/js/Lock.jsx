@@ -39,12 +39,37 @@ class Lock extends Component {
     currentCombo[id] = newValue;
 
     this.onChangeChannel(`currentCombo`, currentCombo);
+
+    //check if the combos is oke
+    if (this.checkCombo()) {
+      this.startVideo();
+    }
+  }
+
+  checkCombo() {
+    let isTheSame = true;
+
+    this.state.solutionCombo.forEach((number, id) => {
+      if (number !== this.state.currentCombo[id]) {
+        isTheSame = false;
+      }
+    });
+
+    return isTheSame;
+  }
+
+  startVideo() {
+    console.log(`start video`);
   }
 
   render() {
-    return this.state.currentCombo.map((number, index) => {
-      return (<LockDile currentNumber={number} handleClickButton={this.handleClickButton} key={`LockDile${index}`} solution={this.state.solutionCombo[index]} id={index}/>);
-    });
+    return (<div className="LockDileHolder">
+      {
+        this.state.currentCombo.map((number, index) => {
+          return (<LockDile currentNumber={number} handleClickButton={this.handleClickButton} key={`LockDile${index}`} solution={this.state.solutionCombo[index]} id={index}/>);
+        })
+      }
+    </div>)
   }
 
 }

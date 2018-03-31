@@ -1,10 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ClassComponent from './ClassComponent.jsx';
+import Lock from './Lock.jsx';
+import UnlockCombo from './UnlockCombo.jsx';
+import {randomInt09} from './lib/functions.js'
 
-const items = ["Amstel Gold Race", "Ronde van Spanje", "WK 1976", "WK 1981"];
+const combo = [];
 
-ReactDOM.render(
-  <ClassComponent items={items} />,
-  document.getElementById('reactcontent')
-);
+//gen ranom combination
+for (let i = 0; i < 3; i++) {
+  combo.push(randomInt09());
+}
+
+ReactDOM.render(<div className="video">
+  <UnlockCombo combo={combo}/>
+  <Lock combo={combo}/>
+</div>, document.querySelector(`.videoHolder`));
